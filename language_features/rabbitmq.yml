@@ -28,8 +28,8 @@
   - name: add users
     rabbitmq_user: user={{item.username}} password={{item.password}} tags=administrator,{{item.username}} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
     with_items:
-    - { username: user1, password: changeme }
-    - { username: user2, password: changeme }
+    - { username: user1, password: "{{ lookup('env', 'RABBITMQ_USER1_PASSWORD') }}" }
+    - { username: user2, password: "{{ lookup('env', 'RABBITMQ_USER2_PASSWORD') }}" }
 
   - name: remove default guest user
     rabbitmq_user: user=guest state=absent
